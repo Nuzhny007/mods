@@ -4,7 +4,7 @@
 // Created by old-ufo on 5/2/15.
 //
 #include "detectors/structures.hpp"
-//#include <opencv2/xfeatures2d.hpp>
+#include <opencv2/xfeatures2d.hpp>
 
 struct FREAKParams
 {
@@ -33,7 +33,7 @@ struct FREAKDescriptor
 public:
   FREAKDescriptor(const FREAKParams &par)
   {
-    CurrentDescriptor = new cv::FREAK(par.orientationNormalized,
+    CurrentDescriptor = cv::xfeatures2d::FREAK::create(par.orientationNormalized,
                        par.scaleNormalized,
                        par.patternScale,
                        par.nOctaves);
@@ -61,7 +61,7 @@ public:
 public:
   descriptor_type type;
   int desc_size;
-  cv::FREAK* CurrentDescriptor;
+  cv::Ptr<cv::xfeatures2d::FREAK> CurrentDescriptor;
 
 private:
   FREAKParams par;

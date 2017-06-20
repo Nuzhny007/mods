@@ -2,14 +2,14 @@
 #define ORBDESCRIPTOR_HPP
 #include "detectors/structures.hpp"
 #include "../detectors/detectors_parameters.hpp"
-
+#include <opencv2/features2d.hpp>
 
 struct ORBDescriptor
 {
 public:
   ORBDescriptor(const ORBParams &par)
   {
-    CurrentDescriptor = new cv::OrbFeatureDetector(par.nfeatures,
+    CurrentDescriptor = cv::ORB::create(par.nfeatures,
                                                    1,
                                                    1,
                                                    par.edgeThreshold,
@@ -49,7 +49,7 @@ public:
 public:
   descriptor_type type;
   int desc_size;
-  cv::ORB* CurrentDescriptor;
+  cv::Ptr<cv::ORB> CurrentDescriptor;
 
 private:
   ORBParams par;

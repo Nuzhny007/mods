@@ -285,7 +285,7 @@ Pixel* Normalize_Patch(const OxKey &key,IplImage* in,float scale,int patch_width
   if (photoNorm) {
 
       float mean, var;
-      cv::Mat cvoutPatch = outPatch;
+      cv::Mat cvoutPatch(outPatch->height, outPatch->width, CV_32FC1, outPatch->imageData, outPatch->widthStep);
       photometricallyNormalize(cvoutPatch, mask, mean, var);
 //      IplImage copy = cvoutPatch;
 //      outPatch = &copy;

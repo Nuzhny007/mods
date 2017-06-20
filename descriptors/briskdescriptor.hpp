@@ -3,7 +3,7 @@
 
 #include "../detectors/structures.hpp"
 #include "../detectors/detectors_parameters.hpp"
-
+#include <opencv2/features2d.hpp>
 
 struct BRISKDescriptor
 {
@@ -11,7 +11,7 @@ public:
   BRISKDescriptor(const BRISKParams &par)
   {
     this->par = par;
-    CurrentDescriptor = new cv::BRISK(par.thresh, par.octaves,par.patternScale);
+    CurrentDescriptor = cv::BRISK::create(par.thresh, par.octaves,par.patternScale);
     type = DESC_BRISK;
     cv::KeyPoint temp_pt;
     temp_pt.pt.x = par.PEParam.patchSize / 2;
@@ -36,7 +36,7 @@ public:
 public:
   descriptor_type type;
   int desc_size;
-  cv::BRISK* CurrentDescriptor;
+  cv::Ptr<cv::BRISK> CurrentDescriptor;
 
 private:
   BRISKParams par;
